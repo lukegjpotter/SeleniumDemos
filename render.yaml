@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: RestAssuredDemos
+    runtime: docker
+    repo: https://github.com/lukegjpotter/RestAssuredDemos
+    dockerContext: .
+    dockerfilePath: Dockerfile
+    region: frankfurt
+    plan: free
+    healthCheckPath: /lotto/health
+    numInstances: 1
+    autoDeploy: false
+version: "1"

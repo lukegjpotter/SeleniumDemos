@@ -1,13 +1,13 @@
 services:
   - type: web
-    name: RestAssuredDemos
+    name: SeleniumDemos
     runtime: docker
-    repo: https://github.com/lukegjpotter/RestAssuredDemos
+    repo: https://github.com/lukegjpotter/SeleniumDemos
     dockerContext: .
     dockerfilePath: Dockerfile
     region: frankfurt
     plan: free
-    healthCheckPath: /lotto/health
+    healthCheckPath: /health
     numInstances: 1
     autoDeploy: false
 version: "1"

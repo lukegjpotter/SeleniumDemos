@@ -1,15 +1,14 @@
 package com.lukegjpotter.selenium.SeleniumDemos;
 
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 
-@Import(TestcontainersConfiguration.class)
 @SpringBootTest
+@Order(1)
 class SeleniumDemosApplicationTests {
 
     @Test
     void contextLoads() {
     }
-
 }

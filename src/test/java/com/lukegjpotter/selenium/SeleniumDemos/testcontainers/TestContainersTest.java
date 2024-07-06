@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TestContainersTest {
 
     @Container
-    public static final BrowserWebDriverContainer<?> BrowserWebDriverContainer = new BrowserWebDriverContainer<>();
+    public final BrowserWebDriverContainer<?> BrowserWebDriverContainer = new BrowserWebDriverContainer<>();
 
     private RemoteWebDriver driver;
 

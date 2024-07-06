@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class LocalHostServerPortControllerTest {
 
     @Container
-    public final org.testcontainers.containers.BrowserWebDriverContainer<?> BrowserWebDriverContainer = new BrowserWebDriverContainer<>()
+    private final BrowserWebDriverContainer<?> BrowserWebDriverContainer = new BrowserWebDriverContainer<>()
             .withRecordingMode(VncRecordingMode.SKIP, new File("./build/testrecordings/"));
 
     private RemoteWebDriver driver;

@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TestContainersTest {
 
     @Container
-    public final BrowserWebDriverContainer<?> BrowserWebDriverContainer = new BrowserWebDriverContainer<>()
+    private final BrowserWebDriverContainer<?> BrowserWebDriverContainer = new BrowserWebDriverContainer<>()
             .withRecordingMode(VncRecordingMode.SKIP, new File("./build/testrecordings/"));
 
     private RemoteWebDriver driver;

@@ -1,6 +1,7 @@
 package com.lukegjpotter.selenium.SeleniumDemos.testcontainers;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -20,11 +21,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class TestContainersTest {
 
+    private static final String recordingsOutputPath = "./build/test-recordings/";
+
     @Container
     private final BrowserWebDriverContainer<?> BrowserWebDriverContainer = new BrowserWebDriverContainer<>()
-            .withRecordingMode(VncRecordingMode.SKIP, new File("./build/testrecordings/"));
+            .withRecordingMode(VncRecordingMode.SKIP, new File(recordingsOutputPath));
 
     private RemoteWebDriver driver;
+
+    @BeforeAll
+    static void beforeAll() {
+        File recordingsOutput = new File(recordingsOutputPath);
+        if (!recordingsOutput.exists()) recordingsOutput.mkdirs();
+    }
 
     @BeforeEach
     void setUp() {

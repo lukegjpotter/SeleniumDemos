@@ -1,6 +1,7 @@
 package com.lukegjpotter.selenium.SeleniumDemos.phptravels;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -28,16 +29,24 @@ public class PhpTravelsCustomerTests {
 
     @Autowired
     private Environment env;
+    private static final String recordingsOutputPath = "./build/test-recordings/";
 
     @Container
-    private final BrowserWebDriverContainer<?> BrowserWebDriverContainer = new BrowserWebDriverContainer<>()
-            .withRecordingMode(VncRecordingMode.RECORD_FAILING, new File("./build/test-recordings/"));
+    private final BrowserWebDriverContainer<?> browserWebDriverContainer = new BrowserWebDriverContainer<>()
+            .withRecordingMode(VncRecordingMode.RECORD_FAILING, new File(recordingsOutputPath));
 
     private RemoteWebDriver driver;
 
+    @BeforeAll
+    static void beforeAll() {
+        File recordingsOutput = new File(recordingsOutputPath);
+        if (!recordingsOutput.exists()) recordingsOutput.mkdirs();
+    }
+
     @BeforeEach
     void setUp() {
-        driver = new RemoteWebDriver(BrowserWebDriverContainer.getSeleniumAddress(), new ChromeOptions());
+        driver = new RemoteWebDriver(browserWebDriverContainer.getSeleniumAddress(), new ChromeOptions());
+
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
     }
 
@@ -59,7 +68,9 @@ public class PhpTravelsCustomerTests {
         Wait<WebDriver> waitForPageToLoad = new WebDriverWait(driver, Duration.ofSeconds(20));
         waitForPageToLoad.until(waitWebDriver -> waitWebDriver.findElement(By.xpath(xpathToAccountsButton)).isDisplayed());
         driver.findElement(By.xpath(xpathToAccountsButton)).click();
-        // FixMe: ElementNotResponding driver.findElement(By.xpath("//*[@id=\"navbarSupportedContent\"]/div[2]/ul/li[3]/ul/li[4]/a")).click();
+        // FixMe: String xpathToProfileMenuItem = "//*[@id=\"navbarSupportedContent\"]/div[2]/ul/li[3]/ul/li[4]/a";
+        //waitForPageToLoad.until(webDriver -> webDriver.findElement(By.xpath(xpathToProfileMenuItem)).isDisplayed());
+        //driver.findElement(By.xpath(xpathToProfileMenuItem)).click();
         // Find the User's Profile Name.
         driver.get("https://phptravels.net/profile");
         waitForPageToLoad.until(waitWebDriver -> waitWebDriver.findElement(By.className("author-content")).isDisplayed());

@@ -27,14 +27,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class PhpTravelsCustomerTests {
 
-    @Autowired
-    private Environment env;
     private static final String recordingsOutputPath = "./build/test-recordings/";
-
     @Container
     private final BrowserWebDriverContainer<?> browserWebDriverContainer = new BrowserWebDriverContainer<>()
             .withRecordingMode(VncRecordingMode.RECORD_FAILING, new File(recordingsOutputPath));
-
+    @Autowired
+    private Environment env;
     private RemoteWebDriver driver;
 
     @BeforeAll
@@ -46,7 +44,6 @@ public class PhpTravelsCustomerTests {
     @BeforeEach
     void setUp() {
         driver = new RemoteWebDriver(browserWebDriverContainer.getSeleniumAddress(), new ChromeOptions());
-
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
     }
 

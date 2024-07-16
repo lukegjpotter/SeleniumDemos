@@ -27,17 +27,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class PhpTravelsCustomerTests {
 
-    private static final String recordingsOutputPath = "./build/test-recordings/";
+    private static final File recordingsOutput = new File("./build/test-recordings/");
+
     @Container
     private final BrowserWebDriverContainer<?> browserWebDriverContainer = new BrowserWebDriverContainer<>()
-            .withRecordingMode(VncRecordingMode.RECORD_FAILING, new File(recordingsOutputPath));
+            .withRecordingMode(VncRecordingMode.RECORD_FAILING, recordingsOutput);
     @Autowired
     private Environment env;
     private RemoteWebDriver driver;
 
     @BeforeAll
     static void beforeAll() {
-        File recordingsOutput = new File(recordingsOutputPath);
         if (!recordingsOutput.exists()) recordingsOutput.mkdirs();
     }
 

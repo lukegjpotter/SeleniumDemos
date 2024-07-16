@@ -21,17 +21,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class TestContainersTest {
 
-    private static final String recordingsOutputPath = "./build/test-recordings/";
+    private static final File recordingsOutput = new File("./build/test-recordings/");
 
     @Container
     private final BrowserWebDriverContainer<?> BrowserWebDriverContainer = new BrowserWebDriverContainer<>()
-            .withRecordingMode(VncRecordingMode.SKIP, new File(recordingsOutputPath));
+            .withRecordingMode(VncRecordingMode.SKIP, recordingsOutput);
 
     private RemoteWebDriver driver;
 
     @BeforeAll
     static void beforeAll() {
-        File recordingsOutput = new File(recordingsOutputPath);
         if (!recordingsOutput.exists()) recordingsOutput.mkdirs();
     }
 
